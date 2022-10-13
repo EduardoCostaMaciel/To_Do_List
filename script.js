@@ -1,4 +1,5 @@
 const botaoCriaTarefa = document.querySelector('#criar-tarefa');
+const botaoSalvaTarefas = document.querySelector('#salvar-tarefas');
 const botaoRemoverFinalizados = document.querySelector('#remover-finalizados');
 const botaoApagaTudo = document.querySelector('#apaga-tudo');
 const inputTexto = document.querySelector('#texto-tarefa');
@@ -32,11 +33,42 @@ function clickDuplo(event) {
 
 listaDeTarefas.addEventListener('dblclick', clickDuplo);
 
+function salvaTarefas() {
+  const tarefas = document.querySelectorAll('li');
+  const listaTarefas = [];
+
+  for (let index = 0; index < tarefas.length; index += 1) {
+    listaTarefas.push(tarefas[index].outerHTML);
+  }
+
+  localStorage.setItem('tarefas', JSON.stringify(listaTarefas));
+}
+
+function renderizaçãoInicial() {
+  const elemHTMLLista = JSON.parse(localStorage.getItem('tarefas'));
+  for (let index = 0; index < elemHTMLLista.length; index += 1) {
+    const li = document.createElement('li');
+    listaDeTarefas.appendChild(li);
+    li.outerHTML = elemHTMLLista[index];
+  }
+}
+
+function paginaInicial() {
+  if (localStorage.getItem('tarefas') === null) {
+    localStorage.setItem('tarefas', JSON.stringify([]));
+  } else {
+    renderizaçãoInicial();
+  }
+}
+
+botaoSalvaTarefas.addEventListener('click', salvaTarefas);
+
 function removerFinalizados() {
   const tarefasCompletas = document.querySelectorAll('.completed');
   for (let index = 0; index < tarefasCompletas.length; index += 1) {
     listaDeTarefas.removeChild(tarefasCompletas[index]);
   }
+  salvaTarefas();
 }
 
 botaoRemoverFinalizados.addEventListener('click', removerFinalizados);
@@ -46,6 +78,11 @@ function removeTudo() {
   for (let index = 0; index < apagaElemento.length; index += 1) {
     listaDeTarefas.removeChild(apagaElemento[index]);
   }
+  localStorage.clear();
 }
 
 botaoApagaTudo.addEventListener('click', removeTudo);
+
+window.onload = () => {
+  paginaInicial();
+};
