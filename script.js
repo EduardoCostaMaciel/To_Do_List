@@ -5,6 +5,8 @@ const botaoApagaTudo = document.querySelector('#apaga-tudo');
 const inputTexto = document.querySelector('#texto-tarefa');
 const listaDeTarefas = document.querySelector('#lista-tarefas');
 
+const corItemSeleciodo = 'rgb(128, 128, 128)';
+
 function criaTarefa() {
   if (inputTexto.value !== '') {
     const lista = document.createElement('li');
@@ -20,9 +22,11 @@ function trocaCor(event) {
   const elementoClicado = document.querySelectorAll('li');
   for (let index = 0; index < elementoClicado.length; index += 1) {
     elementoClicado[index].style.backgroundColor = 'white';
+    elementoClicado[index].classList.remove('selecionado');
   }
   const eventTarget = event.target;
-  eventTarget.style.backgroundColor = 'rgb(128, 128, 128)';
+  eventTarget.style.backgroundColor = corItemSeleciodo;
+  eventTarget.classList.add('selecionado');
 }
 
 listaDeTarefas.addEventListener('click', trocaCor);
@@ -38,11 +42,38 @@ function salvaTarefas() {
   const listaTarefas = [];
 
   for (let index = 0; index < tarefas.length; index += 1) {
+    tarefas[index].style.backgroundColor = 'white';
     listaTarefas.push(tarefas[index].outerHTML);
   }
 
   localStorage.setItem('tarefas', JSON.stringify(listaTarefas));
 }
+
+const btnMoverCima = document.querySelector('#mover-cima');
+function moverTarefaCima() {
+  const tarefas = document.querySelectorAll('li');
+  const tarefaSelect = document.querySelector('.selecionado');
+  for (let index = 0; index < tarefas.length; index += 1) {
+    if (tarefas[index].classList.contains('selecionado') && index > 0) {
+      tarefas[index - 1].insertAdjacentElement('beforebegin', tarefaSelect);
+    }
+  }
+}
+
+btnMoverCima.addEventListener('click', moverTarefaCima);
+
+const btnMoverBaixo = document.querySelector('#mover-baixo');
+function moverTarefaBaixo() {
+  const tarefas = document.querySelectorAll('li');
+  const tarefaSelect = document.querySelector('.selecionado');
+  for (let index = 0; index < tarefas.length; index += 1) {
+    if (tarefas[index].classList.contains('selecionado') && index < tarefas.length - 1) {
+      tarefas[index + 1].insertAdjacentElement('afterend', tarefaSelect);
+    }
+  }
+}
+
+btnMoverBaixo.addEventListener('click', moverTarefaBaixo);
 
 function renderizaçãoInicial() {
   const elemHTMLLista = JSON.parse(localStorage.getItem('tarefas'));
@@ -68,7 +99,6 @@ function removerFinalizados() {
   for (let index = 0; index < tarefasCompletas.length; index += 1) {
     listaDeTarefas.removeChild(tarefasCompletas[index]);
   }
-  salvaTarefas();
 }
 
 botaoRemoverFinalizados.addEventListener('click', removerFinalizados);
