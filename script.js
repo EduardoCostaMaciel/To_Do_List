@@ -1,5 +1,6 @@
 const botaoCriaTarefa = document.querySelector('#criar-tarefa');
 const botaoSalvaTarefas = document.querySelector('#salvar-tarefas');
+const botaoRemoverSelecionado = document.querySelector('#remover-selecionado');
 const botaoRemoverFinalizados = document.querySelector('#remover-finalizados');
 const botaoApagaTudo = document.querySelector('#apaga-tudo');
 const inputTexto = document.querySelector('#texto-tarefa');
@@ -93,6 +94,17 @@ function paginaInicial() {
 }
 
 botaoSalvaTarefas.addEventListener('click', salvaTarefas);
+
+function removeTarefaSelecionada() {
+  const tarefas = document.querySelectorAll('li');
+  for (let index = 0; index < tarefas.length; index += 1) {
+    if (tarefas[index].classList.contains('selecionado')) {
+      listaDeTarefas.removeChild(tarefas[index]);
+    }
+  }
+}
+
+botaoRemoverSelecionado.addEventListener('click', removeTarefaSelecionada);
 
 function removerFinalizados() {
   const tarefasCompletas = document.querySelectorAll('.completed');
