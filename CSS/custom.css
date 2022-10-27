@@ -1,0 +1,9 @@
+body , html {
+  font-family: Roboto, sans-serif;
+  background-color: var(--col-primary);
+  color: var(--col-text-primary);
+}
+
+#iconLogo {
+  font-size: 5rem;
+}

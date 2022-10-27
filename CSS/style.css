@@ -1,0 +1,11 @@
+@import url('./bootstrap.min.css');
+
+@import url('./config.css');
+
+@import url('./global.css');
+
+@import url('./custom.css');
+
+.completed {
+  text-decoration: line-through solid black;
+}
