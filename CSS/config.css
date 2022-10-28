@@ -4,5 +4,9 @@
 
   --col-secondary: rgb(154 , 134 , 253);
 
+  --col-tertiary: rgb(113 , 44 , 249);
+
   --col-text-primary: rgb(255 , 184 , 112);
+
+  --shadow-box: 9px 4px 4px rgba(0 , 0 , 0 , 0.25);
 }

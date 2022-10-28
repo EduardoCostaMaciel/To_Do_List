@@ -25,11 +25,24 @@
 <!--// HEADER -->
 
 <!-- FORM -->
-<input id="texto-tarefa" type="text">
-<button id="criar-tarefa">Adiciona Tarefa</button>
+  <form class="container-fluid d-flex gap-2">
+    <input
+      id="texto-tarefa"
+      type="text"
+      placeholder="Digite sua tarefa"
+      class="form-control border-dark text-light rounded-pill ps-3"
+    >
+    <button
+      id="criar-tarefa"
+      class="btn text-light text-center rounded-pill"
+    >
+      <span><i class="fa-solid fa-folder-plus"></i></span>
+    </button>
+  </form>
 <!--// FORM -->
 
 <!-- TASK LIST -->
+
   <ol id="lista-tarefas"></ol>
   <button id="mover-cima">mover para cima</button>
   <button id="mover-baixo">mover para baixo</button>
@@ -37,7 +50,8 @@
   <button id="remover-selecionado">remover selecionado</button>
   <button id="remover-finalizados">remover finalizados</button>
   <button id="apaga-tudo">apagar todos</button>
-<!--// TASK LIST -->
+
+  <!--// TASK LIST -->
 
   <script src="/JS/script.js"></script>
 </body>

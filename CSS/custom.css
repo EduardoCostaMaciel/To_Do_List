@@ -4,6 +4,33 @@ body , html {
   color: var(--col-text-primary);
 }
 
+/* header */
 #iconLogo {
   font-size: 5rem;
 }
+
+/* //header */
+
+/* form */
+form {
+  max-width: 720px;
+}
+
+/* input */
+#texto-tarefa {
+  background-color: var(--col-secondary);
+  box-shadow: var(--shadow-box);
+}
+
+/* button */
+#criar-tarefa {
+  background-color: var(--col-secondary);
+  box-shadow: var(--shadow-box);
+}
+
+#criar-tarefa:hover {
+  background-color: var(--col-tertiary);
+}
+
+/* //form */
+

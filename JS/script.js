@@ -1,3 +1,4 @@
+const forme = document.querySelector('form');
 const botaoCriaTarefa = document.querySelector('#criar-tarefa');
 const botaoSalvaTarefas = document.querySelector('#salvar-tarefas');
 const botaoRemoverSelecionado = document.querySelector('#remover-selecionado');
@@ -7,6 +8,9 @@ const inputTexto = document.querySelector('#texto-tarefa');
 const listaDeTarefas = document.querySelector('#lista-tarefas');
 
 const corItemSeleciodo = 'rgb(128, 128, 128)';
+
+const formeSubmit = (e) => e.preventDefault();
+forme.addEventListener('submit', formeSubmit);
 
 function criaTarefa() {
   if (inputTexto.value !== '') {
