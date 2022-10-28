@@ -1,11 +1,81 @@
 @import url('./bootstrap.min.css');
 
-@import url('./config.css');
+/* --- Config-css --- */
+:root {
 
-@import url('./global.css');
+  --col-primary: rgb(42 , 39 , 52);
 
-@import url('./custom.css');
+  --col-secondary: rgb(154 , 134 , 253);
+
+  --col-tertiary: rgb(113 , 44 , 249);
+
+  --col-text-primary: rgb(255 , 184 , 112);
+
+  --shadow-box: 9px 4px 4px rgba(0 , 0 , 0 , 0.25);
+}
+
+/* --- //Config-css --- */
+
+/* --- Global-css --- */
+
+
+/* --- //Global-css --- */
+
+/* --- Custom-css --- */
+body , html {
+  font-family: Roboto, sans-serif;
+  background-color: var(--col-primary);
+  color: var(--col-text-primary);
+}
+
+/* header */
+#iconLogo {
+  font-size: 5rem;
+}
+
+/* //header */
+
+/* form */
+form {
+  max-width: 720px;
+}
+
+/* input */
+#texto-tarefa {
+  background-color: var(--col-secondary);
+  box-shadow: var(--shadow-box);
+}
+
+/* button */
+#criar-tarefa {
+  background-color: var(--col-secondary);
+  box-shadow: var(--shadow-box);
+}
+
+#criar-tarefa:hover {
+  background-color: var(--col-tertiary);
+}
+
+/* //form */
+
+/* list */
+#container-list {
+  max-width: 720px;
+}
+
+ol {
+  padding-inline-start: 0;
+}
+
+li {
+  background-color: white;
+}
 
 .completed {
   text-decoration: line-through solid black;
 }
+
+/* //list */
+
+
+/* --- //Custom-css --- */
