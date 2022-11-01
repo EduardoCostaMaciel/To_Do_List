@@ -1,11 +1,14 @@
 const form = document.querySelector('form');
 const input = document.querySelector('#texto-tarefa');
 const btnAddItemList = document.querySelector('#criar-tarefa');
+
 const taskList = document.querySelector('#lista-tarefas');
-const botaoSalvaTarefas = document.querySelector('#salvar-tarefas');
-const botaoRemoverSelecionado = document.querySelector('#remover-selecionado');
-const botaoRemoverFinalizados = document.querySelector('#remover-finalizados');
-const botaoApagaTudo = document.querySelector('#apaga-tudo');
+const btnMoveUp = document.querySelector('#mover-cima');
+const btnMoveDown = document.querySelector('#mover-baixo');
+const btnSaveTaskList = document.querySelector('#salvar-tarefas');
+const btnRemoveTaskSelected = document.querySelector('#remover-selecionado');
+const btnRemoveTaskCompleted = document.querySelector('#remover-finalizados');
+const btnRemoveList = document.querySelector('#apaga-tudo');
 
 const bgSelect = 'rgb(128, 128, 128)';
 
@@ -39,20 +42,20 @@ const selectElementList = (event) => {
   list.forEach((elem) => {
     const elemento = elem;
     elemento.style.backgroundColor = 'white';
-    elem.classList.remove('selecionado');
+    elem.classList.remove('selected');
     elem.children[0].children[0].classList.add('d-none');
   });
   const eventTarget = event.target;
   eventTarget.style.backgroundColor = bgSelect;
-  eventTarget.classList.add('selecionado');
+  eventTarget.classList.add('selected');
   eventTarget.children[0].children[0].classList.remove('d-none');
 };
 taskList.addEventListener('click', selectElementList);
 
-const doubleClick = (event) => {
-  event.target.classList.toggle('completed');
-  const tarefas = document.querySelectorAll('li');
-  tarefas.forEach((elem) => {
+const doubleClick = ({ target }) => {
+  target.classList.toggle('completed');
+  const list = document.querySelectorAll('li');
+  list.forEach((elem) => {
     if (elem.classList.contains('completed')) {
       elem.children[0].children[1].classList.remove('d-none');
     } else {
@@ -62,93 +65,80 @@ const doubleClick = (event) => {
 };
 taskList.addEventListener('dblclick', doubleClick);
 
-function salvaTarefas() {
-  const tarefas = document.querySelectorAll('li');
-  const listaTarefas = [];
-
-  for (let index = 0; index < tarefas.length; index += 1) {
-    tarefas[index].style.backgroundColor = 'white';
-    listaTarefas.push(tarefas[index].outerHTML);
-  }
-
-  localStorage.setItem('tarefas', JSON.stringify(listaTarefas));
-}
-
-const btnMoverCima = document.querySelector('#mover-cima');
-function moverTarefaCima() {
-  const tarefas = document.querySelectorAll('li');
-  const tarefaSelect = document.querySelector('.selecionado');
-  for (let index = 0; index < tarefas.length; index += 1) {
-    if (tarefas[index].classList.contains('selecionado') && index > 0) {
-      tarefas[index - 1].insertAdjacentElement('beforebegin', tarefaSelect);
+const moveTaskUp = () => {
+  const list = document.querySelectorAll('li');
+  const taskSelected = document.querySelector('.selected');
+  for (let index = 0; index < list.length; index += 1) {
+    if (list[index].classList.contains('selected') && index > 0) {
+      list[index - 1].insertAdjacentElement('beforebegin', taskSelected);
     }
   }
-}
+};
+btnMoveUp.addEventListener('click', moveTaskUp);
 
-btnMoverCima.addEventListener('click', moverTarefaCima);
-
-const btnMoverBaixo = document.querySelector('#mover-baixo');
-function moverTarefaBaixo() {
-  const tarefas = document.querySelectorAll('li');
-  const tarefaSelect = document.querySelector('.selecionado');
-  for (let index = 0; index < tarefas.length; index += 1) {
-    if (tarefas[index].classList.contains('selecionado') && index < tarefas.length - 1) {
-      tarefas[index + 1].insertAdjacentElement('afterend', tarefaSelect);
+const moveTaskDown = () => {
+  const list = document.querySelectorAll('li');
+  const taskSelected = document.querySelector('.selected');
+  for (let index = 0; index < list.length; index += 1) {
+    if (list[index].classList.contains('selected') && index < list.length - 1) {
+      list[index + 1].insertAdjacentElement('afterend', taskSelected);
     }
   }
-}
+};
+btnMoveDown.addEventListener('click', moveTaskDown);
 
-btnMoverBaixo.addEventListener('click', moverTarefaBaixo);
+const saveTaskList = () => {
+  const list = document.querySelectorAll('li');
+  const taskListSave = [];
 
-function renderizaçãoInicial() {
-  const elemHTMLLista = JSON.parse(localStorage.getItem('tarefas'));
-  for (let index = 0; index < elemHTMLLista.length; index += 1) {
+  list.forEach((elem) => {
+    const elemento = elem;
+    elemento.style.backgroundColor = 'white';
+    taskListSave.push(elem.outerHTML);
+  });
+
+  localStorage.setItem('tasks', JSON.stringify(taskListSave));
+};
+btnSaveTaskList.addEventListener('click', saveTaskList);
+
+const removeTaskSelected = () => {
+  const list = document.querySelectorAll('li');
+  list.forEach((elem) => {
+    if (elem.classList.contains('selected')) {
+      taskList.removeChild(elem);
+    }
+  });
+};
+btnRemoveTaskSelected.addEventListener('click', removeTaskSelected);
+
+const removeTasksCompleted = () => {
+  const taskCompleted = document.querySelectorAll('.completed');
+  taskCompleted.forEach((elem) => taskList.removeChild(elem));
+};
+btnRemoveTaskCompleted.addEventListener('click', removeTasksCompleted);
+
+const cleanList = () => {
+  const list = document.querySelectorAll('li');
+  list.forEach((elem) => taskList.removeChild(elem));
+  localStorage.clear();
+};
+btnRemoveList.addEventListener('click', cleanList);
+
+const realodInitial = () => {
+  const listHTML = JSON.parse(localStorage.getItem('tasks'));
+  listHTML.forEach((elem) => {
     const li = document.createElement('li');
     taskList.appendChild(li);
-    li.outerHTML = elemHTMLLista[index];
-  }
-}
-
-function paginaInicial() {
-  if (localStorage.getItem('tarefas') === null) {
-    localStorage.setItem('tarefas', JSON.stringify([]));
-  } else {
-    renderizaçãoInicial();
-  }
-}
-
-botaoSalvaTarefas.addEventListener('click', salvaTarefas);
-
-function removeTarefaSelecionada() {
-  const tarefas = document.querySelectorAll('li');
-  for (let index = 0; index < tarefas.length; index += 1) {
-    if (tarefas[index].classList.contains('selecionado')) {
-      taskList.removeChild(tarefas[index]);
-    }
-  }
-}
-
-botaoRemoverSelecionado.addEventListener('click', removeTarefaSelecionada);
-
-function removerFinalizados() {
-  const tarefasCompletas = document.querySelectorAll('.completed');
-  for (let index = 0; index < tarefasCompletas.length; index += 1) {
-    taskList.removeChild(tarefasCompletas[index]);
-  }
-}
-
-botaoRemoverFinalizados.addEventListener('click', removerFinalizados);
-
-function removeTudo() {
-  const apagaElemento = document.querySelectorAll('li');
-  for (let index = 0; index < apagaElemento.length; index += 1) {
-    taskList.removeChild(apagaElemento[index]);
-  }
-  localStorage.clear();
-}
-
-botaoApagaTudo.addEventListener('click', removeTudo);
-
-window.onload = () => {
-  paginaInicial();
+    li.outerHTML = elem;
+  });
 };
+
+const pageInitial = () => {
+  if (localStorage.getItem('tasks') === null) {
+    localStorage.setItem('tasks', JSON.stringify([]));
+  } else {
+    realodInitial();
+  }
+};
+
+window.onload = () => pageInitial();

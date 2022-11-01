@@ -1,6 +1,10 @@
 @import url('./bootstrap.min.css');
 
 /* --- Config-css --- */
+::-webkit-scrollbar {
+  display: none;
+}
+
 :root {
 
   --col-primary: rgb(42 , 39 , 52);
@@ -17,15 +21,28 @@
 /* --- //Config-css --- */
 
 /* --- Global-css --- */
+.btn {
+  background-color: var(--col-secondary);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.2rem;
+}
 
+.btn:hover {
+  background-color: var(--col-tertiary);
+}
 
 /* --- //Global-css --- */
 
 /* --- Custom-css --- */
-body , html {
+body {
   font-family: Roboto, sans-serif;
   background-color: var(--col-primary);
   color: var(--col-text-primary);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 /* header */
@@ -46,16 +63,6 @@ form {
   box-shadow: var(--shadow-box);
 }
 
-/* button */
-#criar-tarefa {
-  background-color: var(--col-secondary);
-  box-shadow: var(--shadow-box);
-}
-
-#criar-tarefa:hover {
-  background-color: var(--col-tertiary);
-}
-
 /* //form */
 
 /* list */
@@ -65,6 +72,7 @@ form {
 
 ol {
   padding-inline-start: 0;
+  margin-bottom: 5rem;
 }
 
 li {
@@ -76,6 +84,5 @@ li {
 }
 
 /* //list */
-
 
 /* --- //Custom-css --- */

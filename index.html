@@ -34,7 +34,7 @@
     >
     <button
       id="criar-tarefa"
-      class="btn text-light text-center rounded-pill"
+      class="btn shadow text-light text-center rounded-pill"
     >
       <span><i class="fa-solid fa-folder-plus"></i></span>
     </button>
@@ -44,7 +44,7 @@
 <!-- TASK LIST -->
   <div
     id="container-list"
-    class="container-fluid mt-4"
+    class="position-relative container-fluid mt-4"
   >
     <ol
       id="lista-tarefas"
@@ -52,13 +52,45 @@
     >
     </ol>
 
-    <div>
-      <button id="mover-cima">mover para cima</button>
-      <button id="mover-baixo">mover para baixo</button>
-      <button id="salvar-tarefas">salvar tarefas</button>
-      <button id="remover-selecionado">remover selecionado</button>
-      <button id="remover-finalizados">remover finalizados</button>
-      <button id="apaga-tudo">apagar todos</button>
+    <div class="container-fluid position-fixed start-50 bottom-0 translate-middle d-flex justify-content-center gap-1">
+      <button
+        id="mover-cima"
+        class="btn shadow text-light text-center rounded-pill"
+      >
+        <span><i class="fa-solid fa-arrow-up"></i></span>
+      </button>
+      <button
+        id="mover-baixo"
+        class="btn shadow text-light text-center rounded-pill"
+      >
+        <span><i class="fa-solid fa-arrow-down"></i></span>
+      </button>
+      <button
+        id="salvar-tarefas"
+        class="btn shadow text-light text-center rounded-pill"
+      >
+        <span><i class="fa-solid fa-box-archive"></i></span>
+      </button>
+      <button
+        id="remover-selecionado"
+        class="btn shadow text-light text-center rounded-pill"
+      >
+        <span><i class="fa-solid fa-check"></i></span>
+        <span><i class="fa-solid fa-trash-arrow-up"></i></span>
+      </button>
+      <button
+        id="remover-finalizados"
+        class="btn shadow text-light text-center rounded-pill"
+      >
+        <span><i class="fa-solid fa-check-double"></i></span>
+        <span><i class="fa-solid fa-trash-arrow-up"></i></span>
+      </button>
+      <button
+        id="apaga-tudo"
+        class="btn shadow text-light text-center rounded-pill"
+      >
+        <span><i class="fa-solid fa-trash-arrow-up"></i></span>
+      </button>
     </div>
   </div>
 
